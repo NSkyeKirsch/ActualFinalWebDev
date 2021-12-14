@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
   inputElement = document.querySelector("#message-input");
   sendButtonElement = document.querySelector('#send-button');
 
-  alTime(alMessagesOne);
+  alTime(alMessagesOne, chatMessagesOne);
 
 
   sendButtonElement.addEventListener("click", function() {
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 let chatMessagesOne = [{
     "Sender": "George",
-    "Message": "Hey, It's George. Are you guys ready to start?",
+    "Message": "Hey, It's George. Are you guys ready to start the group meeting?",
     "Delay": "1",
     "Event": "none",
     "id": 1
@@ -60,8 +60,8 @@ let chatMessagesOne = [{
     "id": 2
   },
   {
-    "Sender": "George",
-    "Message": "Hello World 3",
+    "Sender": "Robin",
+    "Message": "Hey",
     "Delay": "3",
     "Event": "none",
     "id": 3
@@ -69,7 +69,7 @@ let chatMessagesOne = [{
   },
   {
     "Sender": "George",
-    "Message": "What's your name again?",
+    "Message": "Hey new person, what's your name again?",
     "Delay": "4",
     "Event": ["input", "Yes"],
     "id": 4
@@ -89,13 +89,25 @@ let alMessagesOne = [{
   }
 ];
 
-function alTime(database) {
+let alMessagesTwo = [{
+    "Sender": "Al",
+    "Message": "Hey, congrats on answering your first question!",
+    "Event": ["none"],
+  },
+  {
+    "Sender": name,
+    "Message": "Thanks",
+    "Event": ["none"],
+  }
+];
+
+function alTime(database, nextDatabase) {
 
   createAlementProper(database[alNumMessages]);
 
   document.querySelector("#closing-button").addEventListener("click", function() {
 
-    off(database, chatMessagesOne);
+    off(database, nextDatabase);
 
   })
 }
@@ -105,7 +117,7 @@ function off(database, nextDatabase) {
   alBox.remove();
   alNumMessages = alNumMessages + 1;
   if (alNumMessages < database.length) {
-    alTime(database);
+    alTime(database, nextDatabase);
   } else {
     alNumMessages = 0;
     for (var i = 0; i < nextDatabase.length; i++) {
@@ -278,8 +290,8 @@ function processResponse() {
 
   if (currentMessageID == 4){
     responseData = {
-      "Sender": "George",
-      "Message": "Oh, hey " + ansInput + "- do you think cats are the best?",
+      "Sender": "Mary",
+      "Message": "Oh, hey " + ansInput + "- do you think cats are the best? yes or no?",
       "Delay": 1,
       "Event": "none",
       "id": 5
@@ -289,8 +301,8 @@ function processResponse() {
   else if (currentMessageID == 5){
     if (ansInput == "yes" || ansInput == "yeah" || ansInput == "yep" || ansInput == "the best"){
       responseData = {
-        "Sender": "George",
-        "Message": "ME TOO! aaaaa they're the best!~",
+        "Sender": "Mary",
+        "Message": "ME TOO! I think I would gain so many subscribers if I got a cat!",
         "Delay": 1,
         "Event": "none",
         "id": 6
@@ -299,10 +311,10 @@ function processResponse() {
       goToNext(chatMessagesTwo);
 
     }
-    else if (ansInput == "no" || ansInput == "nope" || ansInput == "no way" || ansInput == "dogs"){
+    else if (ansInput == "no" || ansInput == "nope" || ansInput == "no way" || ansInput == "nah"){
       responseData = {
-        "Sender": "George",
-        "Message": "oh... :(",
+        "Sender": "Mary",
+        "Message": "I don't either, but I would totally get more subscribers if I got one!",
         "Delay": 1,
         "Event": "none",
         "id": 6
@@ -313,24 +325,37 @@ function processResponse() {
     }
     else {
       responseData = {
-        "Sender": "George",
+        "Sender": "Mary",
         "Message": "huh? i don't understand...",
         "Delay": 1,
         "Event": "none",
         "id": 7
       }
-      goBack(4);
+      goBack(4, 2, responseData);
     }
   }
   else if (currentMessageID == 10){
-    responseData = {
-      "Sender": "Robin",
-      "Message": "Wow! Thanks!",
-      "Delay": 1,
-      "Event": "none",
-      "id": 11
+    if (ansInput == "profiles" || ansInput == "profile"){
+      responseData = {
+        "Sender": "Robin",
+        "Message": "yes" + " " + ansInput + ", " + "Thanks!",
+        "Delay": 1,
+        "Event": "none",
+        "id": 11
+      }
+
+      alTime(alMessagesTwo, chatMessagesThree);
+    } else {
+        responseData = {
+          "Sender": "Robin",
+          "Message": "huh? i don't understand...",
+          "Delay": 1,
+          "Event": "none",
+          "id": 12
+        }
+        goBack(10, 1, chatMessagesTwo);
+      }
     }
-  }
 
 
 function goToNext(database){
@@ -342,10 +367,16 @@ function goToNext(database){
   }, ((responseData['Delay'] * 2000)));
 }
 
-  function goBack(id){
+  function goBack(id, type, database){
     window.setTimeout(function(){
-      currentMessageID = id;
-      processResponse();
+      if(type == 1){
+        for (var i = 0; i < database.length; i++) {
+          createElementProper(database[i]);
+          currentMessageID = database[i]["id"];
+        }
+      } else {
+        processResponse();
+      }
     }, ((responseData['Delay'] * 2000)));
 
   }
@@ -355,26 +386,25 @@ function goToNext(database){
     createElementProper(responseData);
   }, ((responseData['Delay'] * 1000)));
 
-
 }
 
 let chatMessagesTwo = [{
     "Sender": "Robin",
-    "Message": "Hello World",
+    "Message": "Do you know how to take care of one?",
     "Delay": 1,
     "Event": "none",
     "id": 7
   },
   {
-    "Sender": "Robin",
-    "Message": "Hello World 2",
+    "Sender": "Mary",
+    "Message": "haha NOPE. I just need to take a few cute videos and then get rid of it :)",
     "Delay": 2,
     "Event": "none",
     "id": 8
   },
   {
-    "Sender": "Robin",
-    "Message": "Hello World 3",
+    "Sender": "George",
+    "Message": "Thomas isn't here yet, but we should get started on our project.",
     "Delay": 3,
     "Event": "none",
     "id": 9
@@ -382,12 +412,22 @@ let chatMessagesTwo = [{
   },
   {
     "Sender": "Robin",
-    "Message": "What's an input again?",
+    "Message": "Right. What made the first social media plaform different from chats before it? I'm looking for one word.",
     "Delay": 4,
     "Event": ["input", "Yes"],
     "id": 10
   }
 ];
+
+let chatMessagesThree = [
+  {
+    "Sender": "Thomas",
+    "Message": "Whoops, I'm late.",
+    "Delay": 1,
+    "Event": ["input", "Yes"],
+    "id": 12
+  }
+]
 
 
 

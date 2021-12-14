@@ -59,6 +59,7 @@ div {
 .leftInfo {
   padding-top: 4%;
   padding-left: 4%;
+  line-height: 30px;
 }
 
 #right-side {

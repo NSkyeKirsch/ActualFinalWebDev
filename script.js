@@ -304,7 +304,7 @@ function processResponse(delay) {
     name = ansInput;
   }
   else if (currentMessageID == 5){
-    if (ansInput == "yes" || ansInput == "yeah" || ansInput == "yep" || ansInput == "the best"){
+    if (ansInput == "yes" || ansInput == "yeah" || ansInput == "yep" || ansInput == "the best" || ansInput == "yea"){
       responseData = {
         "Sender": "Mary",
         "Message": "ME TOO! I think I would gain so many subscribers if I got a cat!",
@@ -362,15 +362,19 @@ function processResponse(delay) {
       }
     }
 
-
-function goToNext(database){
   window.setTimeout(function(){
-    for (var i = 0; i < database.length; i++) {
-      createElementProper(database[i]);
-      currentMessageID = database[i]["id"];
-    }
-  }, ((responseData['Delay'] * 2000)));
-}
+    currentMessageID = responseData["id"];
+    createElementProper(responseData);
+  }, ((responseData['Delay'] * 1000)));
+
+  function goToNext(database){
+    window.setTimeout(function(){
+      for (var i = 0; i < database.length; i++) {
+        createElementProper(database[i]);
+        currentMessageID = database[i]["id"];
+      }
+    }, ((responseData['Delay'] * 2000)));
+  }
 
   function goBack(id, type, database){
     currentMessageID = id;
@@ -384,13 +388,9 @@ function goToNext(database){
     } else {
       processResponse(2);
     }
-
   }
 
-  window.setTimeout(function(){
-    currentMessageID = responseData["id"];
-    createElementProper(responseData);
-  }, ((responseData['Delay'] * 1000)));
+
 
 }
 

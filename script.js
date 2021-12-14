@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
     createElementProper(userMessage);
 
 
-    processResponse();
+    processResponse(1);
   })
 
 })
@@ -277,7 +277,7 @@ function createAlementProper(incomingJSON) {
 
 }
 
-function processResponse() {
+function processResponse(delay) {
 
   /* NOTE: By keeping track of an "id" of the question, we can write a bunch of
           conditionals here to decide exactly how we respond to each one. */
@@ -292,7 +292,7 @@ function processResponse() {
     responseData = {
       "Sender": "Mary",
       "Message": "Oh, hey " + ansInput + "- do you think cats are the best? yes or no?",
-      "Delay": 1,
+      "Delay": delay,
       "Event": "none",
       "id": 5
     }
@@ -303,7 +303,7 @@ function processResponse() {
       responseData = {
         "Sender": "Mary",
         "Message": "ME TOO! I think I would gain so many subscribers if I got a cat!",
-        "Delay": 1,
+        "Delay": delay,
         "Event": "none",
         "id": 6
       }
@@ -315,7 +315,7 @@ function processResponse() {
       responseData = {
         "Sender": "Mary",
         "Message": "I don't either, but I would totally get more subscribers if I got one!",
-        "Delay": 1,
+        "Delay": delay,
         "Event": "none",
         "id": 6
       }
@@ -327,7 +327,7 @@ function processResponse() {
       responseData = {
         "Sender": "Mary",
         "Message": "huh? i don't understand...",
-        "Delay": 1,
+        "Delay": delay,
         "Event": "none",
         "id": 7
       }
@@ -339,7 +339,7 @@ function processResponse() {
       responseData = {
         "Sender": "Robin",
         "Message": "yes" + " " + ansInput + ", " + "Thanks!",
-        "Delay": 1,
+        "Delay": delay,
         "Event": "none",
         "id": 11
       }
@@ -349,7 +349,7 @@ function processResponse() {
         responseData = {
           "Sender": "Robin",
           "Message": "huh? i don't understand...",
-          "Delay": 1,
+          "Delay": delay,
           "Event": "none",
           "id": 12
         }
@@ -368,16 +368,17 @@ function goToNext(database){
 }
 
   function goBack(id, type, database){
-    window.setTimeout(function(){
-      if(type == 1){
-        for (var i = 0; i < database.length; i++) {
+    currentMessageID = id;
+    if(type == 1){
+      window.setTimeout(function(){
+        for (var i = id; i < database.length; i++) {
           createElementProper(database[i]);
           currentMessageID = database[i]["id"];
         }
-      } else {
-        processResponse();
-      }
-    }, ((responseData['Delay'] * 2000)));
+      }, ((database['Delay'] * 2000)));
+    } else {
+      processResponse(2);
+    }
 
   }
 

@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 let chatMessagesOne = [{
     "Sender": "George",
-    "Message": "Hey, It's George. Are you guys ready to start the group meeting?",
+    "Message": "Hi, It's George. Are you guys ready to start the group meeting?",
     "Delay": "1",
     "Event": "none",
     "id": 1

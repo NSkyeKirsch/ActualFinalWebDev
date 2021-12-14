@@ -79,12 +79,12 @@ let chatMessagesOne = [{
 
 let alMessagesOne = [{
     "Sender": "Al",
-    "Message": "Hello, I'm Cat",
+    "Message": "Hello, I'm Al, your personal Algorithm.",
     "Event": ["none"],
   },
   {
     "Sender": "Al",
-    "Message": "Nice to meet you",
+    "Message": "I woke you up so that you can work with your friends on the project due tomorrow. Aren't I helpful?",
     "Event": ["none"],
   }
 ];
@@ -97,6 +97,11 @@ let alMessagesTwo = [{
   {
     "Sender": name,
     "Message": "Thanks",
+    "Event": ["none"],
+  },
+  {
+    "Sender": "Al",
+    "Message": "If you want, you can purchase a new upgrade for my systems, and ",
     "Event": ["none"],
   }
 ];

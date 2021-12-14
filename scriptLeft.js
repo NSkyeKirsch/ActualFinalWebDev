@@ -37,14 +37,14 @@ let contentLeftSide = [{
   },
   {
     "Header": "Myspace",
-    "Content": "Hello World 2"
+    "Content": "MySpace became the number one social media website in 2005!"
   },
   {
-    "Header": "Facebook introduces Algorithm",
+    "Header": "Facebook Introduces the Algorithm",
     "Content": "Hello World 3"
   },
   {
-    "Header": "Facebook becomes Meta",
+    "Header": "Facebook Becomes Meta",
     "Content": "Hello World 4"
   }
 ];
